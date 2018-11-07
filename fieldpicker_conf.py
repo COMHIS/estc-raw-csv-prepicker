@@ -2,8 +2,8 @@
 # Input conf
 # -----------------------
 # ESTC input csv location
-# estc_csv = "../estc-data-private/estc-csv-raw-filtered/estc_raw_sane.csv"
-estc_csv = "data-temp/sample1-10000.csv"
+estc_csv = "../estc-data-verified/estc-csv-raw-filtered/estc_raw_sane.csv"
+#estc_csv = "data-temp/sample1-10000.csv"
 
 # -----------------------
 # Output conf
@@ -13,10 +13,9 @@ estc_csv = "data-temp/sample1-10000.csv"
 # Also, if subfield has the value 'all', all subfields will be kept.
 # If you want to have multiple subfields, but not all per one field, add
 # an entry for each combination.
-fields_keep = [{'field': '035'},
-               {'field': '260', 'subfield': 'all'}]
+fields_keep = [{'field': '300', 'subfield': 'c'}]
 
-fields_outfile = "./out/fields_picked.csv"
+fields_outfile = "./out/fields_picked_300c.csv"
 
 # field 035 a has the CU-RivES info. You'll prob want to keep that.
 # examples:
