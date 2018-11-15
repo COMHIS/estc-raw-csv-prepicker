@@ -13,9 +13,10 @@ estc_csv = "../estc-data-verified/estc-csv-raw-filtered/estc_raw_sane.csv"
 # Also, if subfield has the value 'all', all subfields will be kept.
 # If you want to have multiple subfields, but not all per one field, add
 # an entry for each combination.
-fields_keep = [{'field': '300', 'subfield': 'c'}]
+fields_keep = [{'field': '035', 'subfield': 'a'},
+               {'field': '300', 'subfield': 'c'}]
 
-fields_outfile = "./out/fields_picked_300c.csv"
+fields_outfile = "out/fields_picked_300c.csv"
 
 # field 035 a has the CU-RivES info. You'll prob want to keep that.
 # examples:
