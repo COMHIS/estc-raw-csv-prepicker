@@ -19,7 +19,7 @@ fields_keep = [{'field': '035', 'subfield': 'a'},
                #{'field': '362', 'subfield': 'a'} # Publication interv.
                # {'field': '041'} # This field is in use in other catalogues than ESTC
                ]
-fields_outfile = "out/fields_picked_time.csv"
+fields_outfile = "out/fields_picked_260c.csv"
 
 # field 035 a has the CU-RivES info. You'll prob want to keep that.
 # examples:
