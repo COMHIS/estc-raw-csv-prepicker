@@ -14,10 +14,12 @@ estc_csv = "../estc-data-verified/estc-csv-raw-filtered/estc_raw_sane.csv"
 # If you want to have multiple subfields, but not all per one field, add
 # an entry for each combination.
 fields_keep = [{'field': '035', 'subfield': 'a'},
-               {'field': '008', 'subfield': 'language_008'}
+               {'field': '260', 'subfield': 'c'}, # Publication year
+               {'field': '310', 'subfield': 'a'}, # Publication freq.
+               {'field': '362', 'subfield': 'a'} # Publication interv.
                # {'field': '041'} # This field is in use in other catalogues than ESTC
                ]
-fields_outfile = "out/fields_picked_008.csv"
+fields_outfile = "out/fields_picked_time.csv"
 
 # field 035 a has the CU-RivES info. You'll prob want to keep that.
 # examples:
