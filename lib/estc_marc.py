@@ -3,21 +3,48 @@ import os
 
 
 class ESTCMARCEntry(object):
-    def __init__(self, data_lines):
+    def __init__(self, data_lines, curives_filterset=None):
         self.data_lines = data_lines
-        self.curives = self.find_curives()
+        self.curives = self.find_curives(curives_filterset)
         self.testrecord = self.is_test_record()
-        self.curives_sane = self.sane_curives()
+        self.curives_sane = self.test_curives(self.curives, curives_filterset)
+        self.record_seq = self.get_rec_seq()
 
-    def find_curives(self):
-        curives = None
+    def find_curives(self, curives_filterset=None):
+        curives_candidates = []
         for line in self.data_lines:
             if (line['Field_code'] == "035" and
                     line['Subfield_code'] == "a"):
-                curives = line['Value']
-                # print(curives)
-                break
+                curives_candidates.append(line['Value'])
+        good_candidates = []
+        for curives_candidate in curives_candidates:
+            is_good_candidate = self.test_curives(curives_candidate,
+                                                  curives_filterset)
+            if is_good_candidate:
+                good_candidates.append(curives_candidate)
+        if len(good_candidates) == 0:
+            curives = None
+        else:
+            curives = good_candidates[0]
         return curives
+
+    def test_data_lines(self):
+        prev_rec_seq = None
+        for line in self.data_lines:
+            rec_seq = line['Record_seq']
+            if prev_rec_seq is None:
+                prev_rec_seq = rec_seq
+            elif prev_rec_seq != rec_seq:
+                print("Record seq mismatch!")
+                print("curives: " + self.curives)
+                print("req_sec_prev: " + prev_rec_seq)
+                print("req_sec_new: " + rec_seq)
+                return False
+        return True
+
+    def get_rec_seq(self):
+        rec_seq = self.data_lines[0]['Record_seq']
+        return rec_seq
 
     def get_lines(self):
         return self.data_lines
@@ -47,16 +74,23 @@ class ESTCMARCEntry(object):
                     return True
         return False
 
-    def sane_curives(self):
-        if self.curives is None:
+    def test_curives(self, curives_value, curives_filterset=None):
+        if curives_value is None:
             return False
-        if self.curives == "":
+        if curives_value == "":
             return False
-        if self.curives == "(CU-RivES)":
+        if curives_value == "(CU-RivES)":
             return False
+        if len(curives_value) < 11:
+            return False
+        if curives_value[0:10] != "(CU-RivES)":
+            return False
+        if curives_filterset is not None:
+            if curives_value in curives_filterset:
+                return False
         return True
 
-    def keep_fields(self, fields_list):
+    def get_filtered_fields(self, fields_list):
         filtered_data_lines = list()
         for line in self.data_lines:
 
@@ -73,7 +107,60 @@ class ESTCMARCEntry(object):
                             line.get('Subfield_code')):
                         filtered_data_lines.append(line)
 
-        self.data_lines = filtered_data_lines
+        return filtered_data_lines
+
+    def keep_fields(self, fields_list):
+        self.data_lines = self.get_filtered_fields(fields_list)
+
+    def get_pubdata(self):
+        pubfields = self.get_filtered_fields(
+            [{'field': '260', 'subfield': 'all'}])
+
+        pubdata_list = []
+
+        for row in pubfields:
+
+            create_new_row = False
+
+            if row['Subfield_code'] == 'a' or row['Subfield_code'] == 'e':
+                row_type = 'pub_loc_raw'
+                create_new_row = True
+            elif row['Subfield_code'] == 'b' or row['Subfield_code'] == 'f':
+                row_type = 'pub_statement_raw'
+            elif row['Subfield_code'] == 'c' or row['Subfield_code'] == 'g':
+                row_type = 'pub_time_raw'
+            else:
+                print("Unexpected subfield:")
+                print(row)
+                print("\n")
+                continue
+
+            # if previous entry already has value in field type, create new
+            # if current row is location, create new
+            if len(pubdata_list) == 0:
+                create_new_row = True
+            elif pubdata_list[-1].get(row_type) is not None:
+                create_new_row = True
+            elif row_type == 'pub_loc_raw':
+                create_new_row = True
+
+            # if new rows are not created, update all previous rows missing
+            # info in current subfield with the subfield contents
+            if not create_new_row:
+                for pubdata_dict in pubdata_list:
+                    if pubdata_dict[row_type] is None:
+                        pubdata_dict[row_type] = row['Value']
+
+            # if new_row flag set, create the new row.
+            if create_new_row:
+                new_pubdata_outrow = {'cu_rives': self.curives,
+                                      'pub_loc_raw': None,
+                                      'pub_statement_raw': None,
+                                      'pub_time_raw': None}
+                new_pubdata_outrow[row_type] = row['Value']
+                pubdata_list.append(new_pubdata_outrow)
+
+        return pubdata_list
 
 
 class ESTCMARCEntryWriteBuffer(object):
