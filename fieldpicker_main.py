@@ -1,7 +1,7 @@
 from lib.estc_prepicker_common import (
     get_file_len,
     print_progress,
-    read_estc_csv,
+    read_estc_csv
     )
 
 from fieldpicker_conf_035z import (
