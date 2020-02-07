@@ -32,6 +32,7 @@ The script produces 3 output files (with file names configured in `./prefilter_c
 1) Set input and output file locations in `prefilter_conf.py`.
 2) Run `prefilter_main.py`.
 
+
 ## ESTC csv fieldpicker
 
 An ESTC fieldpicker that even your grandma could use. Allows you to filter the big ESTC csv and only keep the fields that are needed for your processing pipeline.
