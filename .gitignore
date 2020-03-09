@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 estc-data-originals
 *~
+||||||| merged common ancestors
+=======
+estc-data-originals
+>>>>>>> e32e53125a9e8fe72feb273768f7145c81d4cd7f
 venv
 .vscode
 data-temp
@@ -8,3 +13,6 @@ __pycache__
 lib/__pycache__
 out/*
 !out/README.md
+.gitignore~
+*~
+.Rproj.user

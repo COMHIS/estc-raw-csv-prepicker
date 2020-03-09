@@ -5,7 +5,9 @@
 # -------------------
 # Input files
 # -------------------
-estc_csv_location = "../estc-data-private/estc-csv-raw/estc-raw.csv"
+estc_csv_location = "../estc-data-originals/estc-csv-raw/estc_raw.csv"
+# testset:
+# estc_csv_location = "data-temp/sample1-10000.csv"
 
 # -------------------
 # Output files
@@ -16,5 +18,8 @@ sane_out = "./out/estc_raw_sane.csv"
 false_out = "./out/estc_raw_bad.csv"
 # Entries with id that has already been processed
 duplicated_out = "./out/estc_raw_duplicated.csv"
+# Table with record sequence and estc_id pairs
+rec_id_table_output_location = "./out/record_seq_estc_id_pairs.csv"
+# Final ESTC unification input data table
 
 summaryfile_location = "./out/summary.md"
