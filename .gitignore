@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 estc-data-originals
+estc-data-verified
+estc_raw_sane.csv
 *~
-||||||| merged common ancestors
-=======
-estc-data-originals
->>>>>>> e32e53125a9e8fe72feb273768f7145c81d4cd7f
 venv
 .vscode
 data-temp

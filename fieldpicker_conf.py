@@ -2,8 +2,8 @@
 # Input conf
 # -----------------------
 # ESTC input csv location
+
 estc_csv = "../estc-data-verified/estc-csv-raw-filtered/estc_raw_sane.csv"
-#estc_csv = "data-temp/sample1-10000.csv"
 
 # -----------------------
 # Output conf
@@ -18,15 +18,3 @@ fields_keep = [{'field': '035', 'subfield': 'a'},
 
 fields_outfile = "out/fields_picked_300c.csv"
 
-# field 035 a has the CU-RivES info. You'll prob want to keep that.
-# examples:
-# Cu-RivES and all publisher field info:
-# fields_keep = [{'field': '035'},
-#                {'field': '260', 'subfield': 'all'}]
-# Cu-RivES and publication location only:
-# fields_keep = [{'field': '035'},
-#                {'field': '260', 'subfield': 'a'}]
-# Cu-RivES, publication location and publication year:
-# fields_keep = [{'field': '035'},
-#                {'field': '260', 'subfield': 'a'},
-#                {'field': '260', 'subfield': 'c'}]
