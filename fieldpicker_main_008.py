@@ -4,7 +4,7 @@ from lib.estc_prepicker_common import (
     read_estc_csv
     )
 
-from fieldpicker_conf_300a import (
+from fieldpicker_conf_008 import (
     estc_csv,
     fields_keep,
     fields_outfile
@@ -42,7 +42,7 @@ for row in read_estc_csv(estc_csv):
 
     if prev_record_seq is None:
         prev_record_seq = row.get('Record_seq')
-        current_record_seq = row.get('Record_seq')
+    current_record_seq = row.get('Record_seq')
     # Check if Record_seq changes. If changed, process record and start new
 
     if current_record_seq != prev_record_seq:
