@@ -2,3 +2,6 @@
 
 LL ran 'ESTC raw csv precleaner' with 'python3 prefilter_main.py' after updating the ESTC dump.
 
+15.6.2023
+
+VV: Cleaned deprecated code, clarified README.md.

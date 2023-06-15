@@ -12,8 +12,12 @@ This is a package of two scripts for filtering the raw parsed ESTC csv.
 
 [Pubdata cleanup starting data](#pubdata-cleanup-starting-data) creates a csv in a different format that plugs into the start of the publisher data cleanup script. That one employs a custom method in **ESTCMARCEntry** -class in [estc_marc.py](./lib/estc_marc.py) and serves as an example of creating a starting data subset for a cleanup script. The MARC format for the different fields varies, so creating an universal function for this task doe not seem feasible.
 
+## Running the scripts
 
-## ESTC raw csv precleaner
+1. Run precleaner to remove duplicates, etc from the raw data.
+2. Run fieldpicker to select fields of interest for further analysis down the ESTC pipeline. 
+
+## ESTC raw csv precleaner **prefilter_main.py**
 
 The purpose of this script is to allow filtering the raw ESTC csv. It removes various test records and and other garbage left in the csv. It makes sure that there are no duplicated Cu-Rives ids, and no entries that are missing and id. All the filtered entries are output to separate csv files to allow manual inpection.
 

@@ -29,7 +29,7 @@ if __name__ == "__main__":
     # get config file location
     parser = argparse.ArgumentParser(
         description="Fieldpicker for (full) ESTC csv.")
-    parser.add_argument("--conf", help="Location of configuration file",
+    parser.add_argument("--conf", help="Configuration file to use in /cfg.",
                         required=True)
     args = parser.parse_args()
 
